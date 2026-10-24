@@ -119,11 +119,11 @@ class CampingCheckFlowTest < ActionDispatch::IntegrationTest
   test "protection hierarchy: most restrictive wins" do
     # Create overlapping areas at same location
     overlap_coords = [
-      [14.40, 50.00],
-      [14.50, 50.00],
-      [14.50, 50.10],
-      [14.40, 50.10],
-      [14.40, 50.00]
+      [ 14.40, 50.00 ],
+      [ 14.50, 50.00 ],
+      [ 14.50, 50.10 ],
+      [ 14.40, 50.10 ],
+      [ 14.40, 50.00 ]
     ]
 
     ProtectedArea.create!(
@@ -154,36 +154,36 @@ class CampingCheckFlowTest < ActionDispatch::IntegrationTest
     points = coords.map { |lng, lat| factory.point(lng, lat) }
     ring = factory.linear_ring(points)
     polygon = factory.polygon(ring)
-    factory.multi_polygon([polygon])
+    factory.multi_polygon([ polygon ])
   end
 
   def brdy_polygon_coords
     [
-      [13.75, 49.65],
-      [13.90, 49.65],
-      [13.90, 49.75],
-      [13.75, 49.75],
-      [13.75, 49.65]
+      [ 13.75, 49.65 ],
+      [ 13.90, 49.65 ],
+      [ 13.90, 49.75 ],
+      [ 13.75, 49.75 ],
+      [ 13.75, 49.65 ]
     ]
   end
 
   def sumava_polygon_coords
     [
-      [13.45, 48.90],
-      [13.60, 48.90],
-      [13.60, 49.05],
-      [13.45, 49.05],
-      [13.45, 48.90]
+      [ 13.45, 48.90 ],
+      [ 13.60, 48.90 ],
+      [ 13.60, 49.05 ],
+      [ 13.45, 49.05 ],
+      [ 13.45, 48.90 ]
     ]
   end
 
   def strict_reserve_coords
     [
-      [13.80, 48.95],
-      [13.85, 48.95],
-      [13.85, 49.00],
-      [13.80, 49.00],
-      [13.80, 48.95]
+      [ 13.80, 48.95 ],
+      [ 13.85, 48.95 ],
+      [ 13.85, 49.00 ],
+      [ 13.80, 49.00 ],
+      [ 13.80, 48.95 ]
     ]
   end
 end

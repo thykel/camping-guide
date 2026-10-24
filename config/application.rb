@@ -44,7 +44,7 @@ module ApiNew
     # Use SQL schema format to handle PostGIS extension-owned tables correctly
     config.active_record.schema_format = :sql
 
-    config.i18n.available_locales = [:en, :cs]
+    config.i18n.available_locales = [ :en, :cs ]
     config.i18n.default_locale = :en
   end
 end

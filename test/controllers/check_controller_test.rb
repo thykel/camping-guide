@@ -131,16 +131,16 @@ class CheckControllerTest < ActionDispatch::IntegrationTest
     points = coords.map { |lng, lat| factory.point(lng, lat) }
     ring = factory.linear_ring(points)
     polygon = factory.polygon(ring)
-    factory.multi_polygon([polygon])
+    factory.multi_polygon([ polygon ])
   end
 
   def brdy_polygon_coords
     [
-      [13.75, 49.65],
-      [13.90, 49.65],
-      [13.90, 49.75],
-      [13.75, 49.75],
-      [13.75, 49.65]
+      [ 13.75, 49.65 ],
+      [ 13.90, 49.65 ],
+      [ 13.90, 49.75 ],
+      [ 13.75, 49.75 ],
+      [ 13.75, 49.65 ]
     ]
   end
 end

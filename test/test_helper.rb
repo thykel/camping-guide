@@ -47,28 +47,28 @@ class ActiveSupport::TestCase
     points = coords.map { |lng, lat| factory.point(lng, lat) }
     ring = factory.linear_ring(points)
     polygon = factory.polygon(ring)
-    factory.multi_polygon([polygon])
+    factory.multi_polygon([ polygon ])
   end
 
   # Sample polygon covering a small area in Czech Republic (around Brdy)
   def brdy_polygon_coords
     [
-      [13.75, 49.65],
-      [13.90, 49.65],
-      [13.90, 49.75],
-      [13.75, 49.75],
-      [13.75, 49.65]
+      [ 13.75, 49.65 ],
+      [ 13.90, 49.65 ],
+      [ 13.90, 49.75 ],
+      [ 13.75, 49.75 ],
+      [ 13.75, 49.65 ]
     ]
   end
 
   # Sample polygon for Šumava NP area
   def sumava_polygon_coords
     [
-      [13.45, 48.90],
-      [13.60, 48.90],
-      [13.60, 49.05],
-      [13.45, 49.05],
-      [13.45, 48.90]
+      [ 13.45, 48.90 ],
+      [ 13.60, 48.90 ],
+      [ 13.60, 49.05 ],
+      [ 13.45, 49.05 ],
+      [ 13.45, 48.90 ]
     ]
   end
 end

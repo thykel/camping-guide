@@ -24,7 +24,7 @@ class MapController < ActionController::Base
     when "MultiPolygon"
       geometry.map { |polygon| polygon.exterior_ring&.points&.map { |p| [ p.y, p.x ] } || [] }
     when "Polygon"
-      [geometry.exterior_ring&.points&.map { |p| [ p.y, p.x ] } || []]
+      [ geometry.exterior_ring&.points&.map { |p| [ p.y, p.x ] } || [] ]
     else
       []
     end

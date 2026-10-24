@@ -95,7 +95,7 @@ class CampingRules
 
     def detect_czech_category(protection_title, name = nil)
       # Order matters: check more specific patterns first (NPR before PR, NPP before PP)
-      [:npr, :npp, :np, :pr, :pp, :prirodni_park, :chko].each do |category|
+      [ :npr, :npp, :np, :pr, :pp, :prirodni_park, :chko ].each do |category|
         patterns = CZECH_CATEGORIES[category][:patterns]
         if protection_title.present? && patterns.any? { |pattern| protection_title.match?(pattern) }
           return category
@@ -257,14 +257,14 @@ class CampingRules
       when "MultiPolygon"
         geometry.map { |polygon| simplify_coords(polygon_coords(polygon)) }
       when "Polygon"
-        [simplify_coords(polygon_coords(geometry))]
+        [ simplify_coords(polygon_coords(geometry)) ]
       else
         []
       end
     end
 
     def polygon_coords(polygon)
-      polygon.exterior_ring&.points&.map { |p| [p.y, p.x] } || []
+      polygon.exterior_ring&.points&.map { |p| [ p.y, p.x ] } || []
     end
 
     def simplify_coords(coords)
@@ -278,7 +278,7 @@ class CampingRules
       result = ActiveRecord::Base.connection.exec_query(
         "SELECT ST_AsGeoJSON(geometry::geometry) as geojson FROM military_areas WHERE id = $1",
         "SQL",
-        [military_area_id]
+        [ military_area_id ]
       )
 
       return [] if result.empty? || result[0]["geojson"].nil?
@@ -288,9 +288,9 @@ class CampingRules
 
       case geojson["type"]
       when "MultiPolygon"
-        coords_data.map { |polygon| simplify_coords(polygon.first.map { |c| [c[1], c[0]] }) }
+        coords_data.map { |polygon| simplify_coords(polygon.first.map { |c| [ c[1], c[0] ] }) }
       when "Polygon"
-        [simplify_coords(coords_data.first.map { |c| [c[1], c[0]] })]
+        [ simplify_coords(coords_data.first.map { |c| [ c[1], c[0] ] }) ]
       else
         []
       end
@@ -322,7 +322,7 @@ class CampingRules
       result = ActiveRecord::Base.connection.exec_query(
         "SELECT ST_AsGeoJSON(geometry::geometry) as geojson FROM protected_zones WHERE id = $1",
         "SQL",
-        [zone_id]
+        [ zone_id ]
       )
 
       return [] if result.empty? || result[0]["geojson"].nil?
@@ -332,9 +332,9 @@ class CampingRules
 
       case geojson["type"]
       when "MultiPolygon"
-        coords_data.map { |polygon| simplify_coords(polygon.first.map { |c| [c[1], c[0]] }) }
+        coords_data.map { |polygon| simplify_coords(polygon.first.map { |c| [ c[1], c[0] ] }) }
       when "Polygon"
-        [simplify_coords(coords_data.first.map { |c| [c[1], c[0]] })]
+        [ simplify_coords(coords_data.first.map { |c| [ c[1], c[0] ] }) ]
       else
         []
       end
