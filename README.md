@@ -101,6 +101,19 @@ docker compose exec api rake import:all
 docker compose logs -f api
 ```
 
+## Deployment
+
+Every push to `main` that passes CI publishes `ghcr.io/thykel/camping-guide:latest` (and
+`:<commit sha>`). On the server (`/root/camping-guide`, a clone of this repo, with
+`COMPOSE_FILE=docker-compose.prod.yml` and the secrets in `.env`), `deploy/update.sh` runs every
+minute from `deploy/systemd/camping-update.timer`: when a new image is out, it pulls the repo,
+restarts `api` (migrations run on start via `bin/docker-entrypoint`), checks `GET /up` and rolls
+back if the new image isn't healthy. Pin a version with `CAMPING_TAG=<commit sha>` in `.env`.
+
+```bash
+journalctl -u camping-update -n 20      # what the updater did
+```
+
 ## Data Sources
 
 Protected area data from OpenStreetMap via Overpass Turbo, stored in `chranene_oblasti.geojson`.

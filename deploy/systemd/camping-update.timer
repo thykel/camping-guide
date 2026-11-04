@@ -1,0 +1,12 @@
+[Unit]
+Description=Check for camping guide updates every minute
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=1min
+# systemd otherwise batches timers to within a minute
+AccuracySec=1s
+RandomizedDelaySec=10s
+
+[Install]
+WantedBy=timers.target

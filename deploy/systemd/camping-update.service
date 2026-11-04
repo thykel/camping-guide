@@ -1,0 +1,7 @@
+# Copy to /etc/systemd/system/ on the server; see the Deployment section in README.md
+[Unit]
+Description=Update the camping guide to the latest published image
+
+[Service]
+Type=oneshot
+ExecStart=%h/camping-guide/deploy/update.sh

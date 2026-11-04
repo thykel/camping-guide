@@ -1,30 +1,32 @@
+# Production on the camping VM (tengil): /root/camping-guide, selected by COMPOSE_FILE in .env.
+# The api image is published by CI (ghcr.io/thykel/camping-guide); deploy/update.sh keeps it
+# current. Secrets (DB_PASSWORD, SECRET_KEY_BASE) are in .env.
 services:
   db:
     image: postgis/postgis:16-3.4
     environment:
       POSTGRES_USER: hikers
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: hikers_production
+      POSTGRES_DB: postgres          # image's PostGIS/TIGER setup goes here, NOT into hikers_production
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U hikers -d hikers_production"]
+      test: ["CMD-SHELL", "pg_isready -U hikers -d postgres"]
       interval: 5s
       timeout: 5s
       retries: 5
     restart: unless-stopped
 
   api:
-    build: .
+    image: ghcr.io/thykel/camping-guide:${CAMPING_TAG:-latest}
     environment:
       DATABASE_HOST: db
       DATABASE_USER: hikers
       DATABASE_PASSWORD: ${DB_PASSWORD}
-      DATABASE_NAME: hikers_production
       RAILS_ENV: production
       SECRET_KEY_BASE: ${SECRET_KEY_BASE}
     ports:
-      - "127.0.0.1:3847:3000"
+      - "80:3000"
     depends_on:
       db:
         condition: service_healthy
