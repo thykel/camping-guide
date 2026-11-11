@@ -3,7 +3,7 @@
 # current. Secrets (DB_PASSWORD, SECRET_KEY_BASE) are in .env.
 services:
   db:
-    image: postgis/postgis:16-3.4
+    image: postgis/postgis:16-3.7
     environment:
       POSTGRES_USER: hikers
       POSTGRES_PASSWORD: ${DB_PASSWORD}

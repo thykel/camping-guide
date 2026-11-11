@@ -1,6 +1,8 @@
 services:
   db:
-    image: postgis/postgis:16-3.4
+    image: postgis/postgis:16-3.7
+    # The official PostGIS image has no arm64 build; run it emulated on Apple Silicon.
+    platform: linux/amd64
     environment:
       POSTGRES_USER: hikers
       POSTGRES_PASSWORD: hikers_dev
